@@ -1,6 +1,6 @@
 import { Controller, Get, Query, Post, Body } from '@nestjs/common';
 import { ResultadoDto } from 'src/dto/resultado.dto';
-import { EmpresaPesquisarDto } from './dto/empresa.pesquisar.dto';
+import { EmpresaCadastrarDto } from './dto/empresa.cadastrar.dto';
 import { Empresa } from './empresa.entity';
 import { EmmpresaService } from './empresa.services';
 
@@ -14,7 +14,7 @@ export class EmpresaController {
   }
 
   @Post('cadastrar')
-  async cadastrar(@Body() body : EmpresaPesquisarDto): Promise<ResultadoDto>{
+  async cadastrar(@Body() body : EmpresaCadastrarDto): Promise<ResultadoDto>{
     return this.empresaService.cadastrar(body)
   }
 }

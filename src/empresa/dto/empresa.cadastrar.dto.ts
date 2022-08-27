@@ -1,4 +1,4 @@
-export interface EmpresaPesquisarDto {
+export interface EmpresaCadastrarDto {
     cnpj:number;
     nomeFantasia: string;
     email:string;

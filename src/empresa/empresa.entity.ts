@@ -17,11 +17,11 @@ export class Empresa {
   @Column()
   razaoSocial: string;
 
-  @Column()
+/*   @Column()
   lojista:{
     nome: string;
     email: string;
     telefone1:string;
     telefone2:string;
-  }
+  } */
 }

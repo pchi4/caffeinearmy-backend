@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common"
 import { Repository } from "typeorm";
 import { Empresa } from "./empresa.entity";
-import { EmpresaPesquisarDto } from "./dto/empresa.pesquisar.dto";
+import { EmpresaCadastrarDto } from "./dto/empresa.cadastrar.dto";
 import { ResultadoDto } from "src/dto/resultado.dto";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class EmmpresaService{
         return this.empresaRepository.find();
     }
 
-    async cadastrar(data: EmpresaPesquisarDto): Promise<ResultadoDto>{
+    async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto>{
         let empresa = new Empresa()
                 
         empresa.cnpj = data.cnpj
@@ -23,7 +23,7 @@ export class EmmpresaService{
         empresa.email = data.email
         empresa.telefone = data.telefone
         empresa.razaoSocial = data.razaoSocial
-        empresa.lojista = data.lojista
+        /* empresa.lojista = data.lojista */
 
         return this.empresaRepository.save(empresa)
           .then((result)=>{
