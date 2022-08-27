@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class Empresa {
-  @PrimaryGeneratedColumn()
+  @Column()
   cnpj: string;
 
   @Column({ length: 500 })
