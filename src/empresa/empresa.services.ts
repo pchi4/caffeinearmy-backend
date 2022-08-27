@@ -23,8 +23,7 @@ export class EmmpresaService{
         empresa.email = data.email
         empresa.telefone = data.telefone
         empresa.razaoSocial = data.razaoSocial
-        /* empresa.lojista = data.lojista */
-
+  
         return this.empresaRepository.save(empresa)
           .then((result)=>{
             return <ResultadoDto>{

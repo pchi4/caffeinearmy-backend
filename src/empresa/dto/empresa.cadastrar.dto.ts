@@ -4,10 +4,4 @@ export interface EmpresaCadastrarDto {
     email:string;
     telefone:string;
     razaoSocial: string;
-/*     lojista:{
-        nome:string;
-        email:string;
-        telefone1:string;
-        telefone2:string;
-    } */
 }
