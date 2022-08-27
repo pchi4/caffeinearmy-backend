@@ -20,4 +20,16 @@ export class Empresa {
 
   @Column()
   razaoSocial: string;
+
+  @Column()
+  nomeLojista: string;
+
+  @Column()
+  telefoneLojista1:string;
+
+  @Column()
+  telefoneLojista2:string;
+  
+  @Column()
+  emailLojista: string;
 }
