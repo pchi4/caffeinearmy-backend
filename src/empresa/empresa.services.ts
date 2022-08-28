@@ -15,6 +15,9 @@ export class EmmpresaService{
         return this.empresaRepository.find();
     }
 
+    async getEmpresa(cnpj: string): Promise<Empresa> {
+      return this.empresaRepository.findOne({where:{cnpj:cnpj}});
+    }
     async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto>{
         let empresa = new Empresa()
                 
