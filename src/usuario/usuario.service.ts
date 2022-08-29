@@ -15,24 +15,29 @@ export class UsuarioService {
     return this.usuarioRepository.find();
   }
 
-  async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto>{
-    let usuario = new Usuario()
-    usuario.name = data.name 
-    usuario.email = data.email 
-    usuario.password = data.password
-    usuario.telefone = data.telefone
-    return this.usuarioRepository.save(usuario)
-      .then((result)=>{
+  async findOne(email): Promise<Usuario> {
+    return this.usuarioRepository.findOne({ where: { email: email } });
+  }
+
+  async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto> {
+    const usuario = new Usuario();
+    usuario.name = data.name;
+    usuario.email = data.email;
+    usuario.password = data.password;
+    usuario.telefone = data.telefone;
+    return this.usuarioRepository
+      .save(usuario)
+      .then((result) => {
         return <ResultadoDto>{
           status: true,
-          mensage: "Usuario cadastrado com sucesso",
-        }
+          mensage: 'Usuario cadastrado com sucesso',
+        };
       })
-      .catch((error)=>{
+      .catch((error) => {
         return <ResultadoDto>{
           status: false,
-          mensage: "Houve um erro ao cadastar",
-        }
-      })  
+          mensage: 'Houve um erro ao cadastar',
+        };
+      });
   }
 }

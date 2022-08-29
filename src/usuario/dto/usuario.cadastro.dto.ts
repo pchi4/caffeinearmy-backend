@@ -1,6 +1,6 @@
 export interface UsuarioCadastrarDto {
-    name: string;
-    email: string;
-    telefone: string;
-    password: string;
+  name: string;
+  email: string;
+  telefone: string;
+  password: string;
 }

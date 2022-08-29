@@ -9,12 +9,12 @@ export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get('listar')
-  async findAll(): Promise<Usuario[]>{
-    return this.usuarioService.findAll()
+  async findAll(): Promise<Usuario[]> {
+    return this.usuarioService.findAll();
   }
 
   @Post('cadastrar')
-  async cadastrar(@Body() body : UsuarioCadastrarDto): Promise<ResultadoDto>{
-    return this.usuarioService.cadastrar(body)
+  async cadastrar(@Body() body: UsuarioCadastrarDto): Promise<ResultadoDto> {
+    return this.usuarioService.cadastrar(body);
   }
 }

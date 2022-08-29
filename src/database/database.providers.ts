@@ -10,7 +10,7 @@ export const databaseProviders = [
         port: Number.parseInt(process.env.MYSQL_PORT),
         username: 'root',
         password: 'root',
-        database: process.env.MYSQL_DB_NAME,
+        database: 'caffeinearmydb',
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
