@@ -11,9 +11,7 @@ export const databaseProviders = [
         username: 'root',
         password: 'root',
         database: process.env.MYSQL_DB_NAME,
-        entities: [
-            __dirname + '/../**/*.entity{.ts,.js}',
-        ],
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
       });
 
