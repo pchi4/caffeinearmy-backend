@@ -21,7 +21,7 @@ export class EmmpresaService {
   async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto> {
     const empresa = new Empresa();
 
-    empresa.cnpj = data.cnpj;
+    empresa.cnpj = data.cnpj.replace(/[^\d]+/g, '');
     empresa.nomeFantasia = data.nomeFantasia;
     empresa.email = data.email;
     empresa.telefone = data.telefone;
@@ -36,7 +36,7 @@ export class EmmpresaService {
       .then((result) => {
         return <ResultadoDto>{
           status: true,
-          mensage: 'Usuario cadastrado com sucesso',
+          mensage: 'Empresa cadastrada com sucesso',
         };
       })
       .catch((error) => {

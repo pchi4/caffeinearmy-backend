@@ -6,7 +6,6 @@ import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 
 @Controller('usuario')
-@UseGuards(AuthGuard('jwt'))
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
