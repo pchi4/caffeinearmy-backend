@@ -11,13 +11,8 @@ export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get('listar')
-  async findAll(): Promise<Usuario[]> {
-    return this.usuarioService.findAll();
-  }
-
-  @Post('logon')
-  async findOne(@Body() body: UsuarioCadastrarDto) {
-    return 'This action adds a new cat';
+  async findAll(): Promise<Usuario[]>{
+    return this.usuarioService.findAll()
   }
 
   @Post('cadastrar')
