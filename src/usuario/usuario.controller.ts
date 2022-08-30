@@ -1,20 +1,27 @@
-import { Controller, Get, Query, Post, Body } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ResultadoDto } from 'src/dto/resultado.dto';
 import { UsuarioCadastrarDto } from './dto/usuario.cadastro.dto';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 
 @Controller('usuario')
+@UseGuards(AuthGuard('jwt'))
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get('listar')
-  async findAll(): Promise<Usuario[]>{
-    return this.usuarioService.findAll()
+  async findAll(): Promise<Usuario[]> {
+    return this.usuarioService.findAll();
+  }
+
+  @Post('logon')
+  async findOne(@Body() body: UsuarioCadastrarDto) {
+    return 'This action adds a new cat';
   }
 
   @Post('cadastrar')
-  async cadastrar(@Body() body : UsuarioCadastrarDto): Promise<ResultadoDto>{
-    return this.usuarioService.cadastrar(body)
+  async cadastrar(@Body() body: UsuarioCadastrarDto): Promise<ResultadoDto> {
+    return this.usuarioService.cadastrar(body);
   }
 }
