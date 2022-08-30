@@ -1,22 +1,20 @@
-# Base image
 FROM node:18-alpine
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+RUN chown -R node /usr/src/app
+
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+
+USER node
+
 ADD package*.json ./
 
+RUN npm ci 
 
-# Install app dependencies
-RUN npm ci
+COPY --chown=node . .
 
-# Bundle app source
-COPY . .
-
-# Creates a "dist" folder with the production build
 RUN npm run build
 
-# Start the server using the production build
 CMD [ "node", "dist/main.js" ]
 
