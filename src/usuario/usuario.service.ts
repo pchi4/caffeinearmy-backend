@@ -11,8 +11,8 @@ export class UsuarioService {
     private usuarioRepository: Repository<Usuario>,
   ) {}
 
-  async findOne(email: string): Promise<Usuario> {
-    return this.usuarioRepository.findOne({ where: { email: email } });
+  async findOne(email: string): Promise<Usuario | undefined>{ 
+    return this.usuarioRepository.findOne({where: { email: email}})
   }
 
   async findAll(): Promise<Usuario[]> {
@@ -39,4 +39,5 @@ export class UsuarioService {
         };
       });
   }
+
 }
