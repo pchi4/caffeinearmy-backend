@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Request, Param, ParseIntPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../auth/auth.service';
 import { ResultadoDto } from 'src/dto/resultado.dto';
@@ -13,9 +13,14 @@ export class UsuarioController {
     private authService: AuthService,
     ) {}
 
-  @Get('listar')
-  async findAll(): Promise<Usuario[]>{
-    return this.usuarioService.findAll()
+    @Get('listar')
+    async findAll(): Promise<Usuario[]> {
+      return this.usuarioService.findAll();
+    }
+
+  @Get(':id')
+  async findOneById(@Param('id',  ParseIntPipe) id: number, ): Promise<Usuario>{
+    return this.usuarioService.findOneById(id);
   }
 
   @Post('cadastrar')

@@ -11,12 +11,16 @@ export class UsuarioService {
     private usuarioRepository: Repository<Usuario>,
   ) {}
 
+  async findAll(): Promise<Usuario[]> {
+    return this.usuarioRepository.find();
+  }
+
   async findOne(email: string): Promise<Usuario | undefined>{ 
     return this.usuarioRepository.findOne({where: { email: email}})
   }
 
-  async findAll(): Promise<Usuario[]> {
-    return this.usuarioRepository.find();
+  async findOneById(id: number): Promise<Usuario> {
+    return this.usuarioRepository.findOne({where:{id: id}});
   }
 
   async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto>{
