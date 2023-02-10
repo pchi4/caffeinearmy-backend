@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Empresa } from './empresa.entity';
 import { EmpresaCadastrarDto } from './dto/empresa.cadastrar.dto';
@@ -16,7 +16,13 @@ export class EmmpresaService {
   }
 
   async getEmpresa(cnpj: string): Promise<Empresa> {
-    return this.empresaRepository.findOne({ where: { cnpj: cnpj } });
+    const owner = await this.empresaRepository.findOne({
+      where: { cnpj: cnpj },
+    });
+    if (!owner) {
+      throw new UnauthorizedException('Empresa não encontrada');
+    }
+    return owner;
   }
   async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto> {
     const empresa = new Empresa();
@@ -33,13 +39,13 @@ export class EmmpresaService {
 
     return this.empresaRepository
       .save(empresa)
-      .then((result) => {
+      .then(() => {
         return <ResultadoDto>{
           status: true,
           mensage: 'Empresa cadastrada com sucesso',
         };
       })
-      .catch((error) => {
+      .catch(() => {
         return <ResultadoDto>{
           status: false,
           mensage: 'Houve um erro ao cadastar',
