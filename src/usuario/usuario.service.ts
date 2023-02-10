@@ -15,33 +15,55 @@ export class UsuarioService {
     return this.usuarioRepository.find();
   }
 
-  async findOne(email: string): Promise<Usuario | undefined>{ 
-    return this.usuarioRepository.findOne({where: { email: email}})
+  async findOne(email: string): Promise<Usuario | undefined> {
+    return this.usuarioRepository.findOne({ where: { email: email } });
   }
 
   async findOneById(id: number): Promise<Usuario> {
-    return this.usuarioRepository.findOne({where:{id: id}});
+    return this.usuarioRepository.findOne({ where: { id: id } });
   }
 
-  async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto>{
-    let usuario = new Usuario()
-    usuario.name = data.name 
-    usuario.email = data.email 
-    usuario.password = data.password
-    usuario.telefone = data.telefone
-    return this.usuarioRepository.save(usuario)
-      .then((result)=>{
+  async update(updateRefreshToken: string): Promise<any> {
+    const user = new Usuario();
+
+    user.refreshToken = updateRefreshToken;
+
+    return this.usuarioRepository
+      .save(user)
+      .then(() => {
+        return <ResultadoDto>{
+          status: true,
+          mensage: 'Refresh token',
+        };
+      })
+      .catch(() => {
+        return <ResultadoDto>{
+          status: false,
+          mensage: 'Houve um erro ao atulizar o token',
+        };
+      });
+  }
+
+  async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto> {
+    const usuario = new Usuario();
+    usuario.name = data.name;
+    usuario.email = data.email;
+    usuario.password = data.password;
+    usuario.telefone = data.telefone;
+    return this.usuarioRepository
+      .save(usuario)
+      .then(() => {
         return <ResultadoDto>{
           status: true,
           mensage: 'Usuario cadastrado com sucesso',
         };
       })
       .catch((error) => {
+        console.log(error);
         return <ResultadoDto>{
           status: false,
           mensage: 'Houve um erro ao cadastar',
         };
       });
   }
-
 }

@@ -1,7 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { hashSync } from 'bcrypt';
 
-@Entity({name:'user'})
+@Entity({ name: 'user' })
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,6 +24,15 @@ export class Usuario {
 
   @Column()
   password: string;
+
+  @Column({ nullable: true })
+  refreshToken: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @BeforeInsert()
   hashPassword() {
