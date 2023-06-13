@@ -1,8 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Empresa {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,7 +17,7 @@ export class Empresa {
   @Column({ length: 500 })
   nomeFantasia: string;
 
-  @Column('text')
+  @Column()
   email: string;
 
   @Column()
@@ -25,11 +30,17 @@ export class Empresa {
   nomeLojista: string;
 
   @Column()
-  telefoneLojista1:string;
+  telefoneLojista1: string;
 
   @Column()
-  telefoneLojista2:string;
-  
+  telefoneLojista2: string;
+
   @Column()
   emailLojista: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

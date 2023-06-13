@@ -33,13 +33,13 @@ export class UsuarioService {
       .then(() => {
         return <ResultadoDto>{
           status: true,
-          mensage: 'Refresh token',
+          message: 'Refresh token',
         };
       })
       .catch(() => {
         return <ResultadoDto>{
           status: false,
-          mensage: 'Houve um erro ao atulizar o token',
+          message: 'Houve um erro ao atulizar o token',
         };
       });
   }
@@ -55,14 +55,13 @@ export class UsuarioService {
       .then(() => {
         return <ResultadoDto>{
           status: true,
-          mensage: 'Usuario cadastrado com sucesso',
+          message: 'Usuario cadastrado com sucesso',
         };
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         return <ResultadoDto>{
           status: false,
-          mensage: 'Houve um erro ao cadastar',
+          message: 'Houve um erro ao cadastar',
         };
       });
   }

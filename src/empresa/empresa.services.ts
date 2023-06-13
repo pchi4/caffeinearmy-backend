@@ -15,19 +15,14 @@ export class EmmpresaService {
     return this.empresaRepository.find();
   }
 
-  async getEmpresa(cnpj: string): Promise<Empresa> {
-    const owner = await this.empresaRepository.findOne({
-      where: { cnpj: cnpj },
-    });
-    if (!owner) {
-      throw new UnauthorizedException('Empresa não encontrada');
-    }
-    return owner;
+  async findByCnpj(cnpj: string): Promise<Empresa> {
+    return this.empresaRepository.findOne({ where: { cnpj: cnpj } });
   }
+
   async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto> {
     const empresa = new Empresa();
 
-    empresa.cnpj = data.cnpj.replace(/[^\d]+/g, '');
+    empresa.cnpj = data.cnpj;
     empresa.nomeFantasia = data.nomeFantasia;
     empresa.email = data.email;
     empresa.telefone = data.telefone;
@@ -42,13 +37,13 @@ export class EmmpresaService {
       .then(() => {
         return <ResultadoDto>{
           status: true,
-          mensage: 'Empresa cadastrada com sucesso',
+          message: 'Empresa cadastrada com sucesso',
         };
       })
       .catch(() => {
         return <ResultadoDto>{
           status: false,
-          mensage: 'Houve um erro ao cadastar',
+          message: 'Houve um erro ao cadastar',
         };
       });
   }

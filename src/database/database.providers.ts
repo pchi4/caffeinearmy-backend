@@ -8,12 +8,10 @@ export const databaseProviders = [
         type: 'mysql',
         host: process.env.MYSQL_HOST,
         port: Number.parseInt(process.env.MYSQL_PORT),
-        username: 'root',
-        password: 'root',
+        username: process.env.MYSQL_ROOT_PASSWORD,
+        password: process.env.MYSQL_ROOT_PASSWORD,
         database: process.env.MYSQL_DB_NAME,
-        entities: [
-            __dirname + '/../**/*.entity{.ts,.js}',
-        ],
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
       });
 
