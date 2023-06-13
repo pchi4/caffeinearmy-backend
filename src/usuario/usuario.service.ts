@@ -1,65 +1,66 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { ResultadoDto } from 'src/dto/resultado.dto';
+import { ResultDto } from 'src/dto/resultado.dto';
 import { Repository } from 'typeorm';
-import { UsuarioCadastrarDto } from './dto/usuario.cadastro.dto';
-import { Usuario } from './usuario.entity';
+import { UserRegisterDto } from './dto/usuario.cadastro.dto';
+import { User } from './usuario.entity';
 
 @Injectable()
 export class UsuarioService {
   constructor(
     @Inject('USUARIO_REPOSITORY')
-    private usuarioRepository: Repository<Usuario>,
+    private userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<Usuario[]> {
-    return this.usuarioRepository.find();
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find();
   }
 
-  async findOne(email: string): Promise<Usuario | undefined> {
-    return this.usuarioRepository.findOne({ where: { email: email } });
+  async findOne(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { email: email } });
   }
 
-  async findOneById(id: number): Promise<Usuario> {
-    return this.usuarioRepository.findOne({ where: { id: id } });
+  async findOneById(id: number): Promise<User> {
+    return this.userRepository.findOne({ where: { id: id } });
   }
 
   async update(updateRefreshToken: string): Promise<any> {
-    const user = new Usuario();
+    const user = new User();
 
     user.refreshToken = updateRefreshToken;
 
-    return this.usuarioRepository
+    return this.userRepository
       .save(user)
       .then(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: true,
           message: 'Refresh token',
         };
       })
       .catch(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: false,
           message: 'Houve um erro ao atulizar o token',
         };
       });
   }
 
-  async cadastrar(data: UsuarioCadastrarDto): Promise<ResultadoDto> {
-    const usuario = new Usuario();
-    usuario.name = data.name;
-    usuario.email = data.email;
-    usuario.password = data.password;
-    usuario.telefone = data.telefone;
-    return this.usuarioRepository
-      .save(usuario)
+  async registerUser(data: UserRegisterDto): Promise<ResultDto> {
+    const user = new User();
+
+    user.name = data.name;
+    user.email = data.email;
+    user.password = data.password;
+    user.telefone = data.telefone;
+    return this.userRepository
+      .save(user)
       .then(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: true,
           message: 'Usuario cadastrado com sucesso',
         };
       })
       .catch(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: false,
           message: 'Houve um erro ao cadastar',
         };

@@ -9,7 +9,7 @@ import {
 import { hashSync } from 'bcrypt';
 
 @Entity({ name: 'user' })
-export class Usuario {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -3,17 +3,12 @@ import {
   Controller,
   Get,
   Post,
-  UseGuards,
-  Request,
   Param,
   ParseIntPipe,
-  NotFoundException,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../auth/auth.service';
-import { ResultadoDto } from 'src/dto/resultado.dto';
-import { UsuarioCadastrarDto } from './dto/usuario.cadastro.dto';
-import { Usuario } from './usuario.entity';
+import { UserRegisterDto } from './dto/usuario.cadastro.dto';
+import { User } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { UserNotFound } from './Execeptions/UserNotFound.exeception';
@@ -28,7 +23,7 @@ export class UsuarioController {
   ) {}
 
   @Get('listar')
-  async findAll(): Promise<Usuario[]> {
+  async findAll(): Promise<User[]> {
     const users = await this.usuarioService.findAll();
 
     if (!users) {
@@ -39,7 +34,7 @@ export class UsuarioController {
   }
 
   @Get(':id')
-  async findOneById(@Param('id', ParseIntPipe) id: number): Promise<Usuario> {
+  async findOneById(@Param('id', ParseIntPipe) id: number): Promise<User> {
     const user = await this.usuarioService.findOneById(id);
 
     if (!user) {
@@ -49,14 +44,14 @@ export class UsuarioController {
   }
 
   @Post('cadastrar')
-  async cadastrar(@Body() body: UsuarioCadastrarDto) {
+  async register(@Body() body: UserRegisterDto) {
     const user = await this.usuarioService.findOne(body.email);
 
     if (user?.email === body?.email) {
       throw new UserBadRequest('Já existe um usuário com esse email');
     }
 
-    return this.usuarioService.cadastrar(body);
+    return this.usuarioService.registerUser(body);
   }
 
   @Post('login')

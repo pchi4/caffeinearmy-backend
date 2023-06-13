@@ -1,47 +1,47 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Empresa } from './empresa.entity';
-import { EmpresaCadastrarDto } from './dto/empresa.cadastrar.dto';
-import { ResultadoDto } from 'src/dto/resultado.dto';
+import { Company } from './empresa.entity';
+import { CompanyRegisterDto } from './dto/empresa.cadastrar.dto';
+import { ResultDto } from 'src/dto/resultado.dto';
 
 @Injectable()
-export class EmmpresaService {
+export class CompanyService {
   constructor(
     @Inject('EMPRESA_REPOSITORY')
-    private empresaRepository: Repository<Empresa>,
+    private companyRepository: Repository<Company>,
   ) {}
 
-  async findAll(): Promise<Empresa[]> {
-    return this.empresaRepository.find();
+  async findAll(): Promise<Company[]> {
+    return this.companyRepository.find();
   }
 
-  async findByCnpj(cnpj: string): Promise<Empresa> {
-    return this.empresaRepository.findOne({ where: { cnpj: cnpj } });
+  async findByCnpj(cnpj: string): Promise<Company> {
+    return this.companyRepository.findOne({ where: { cnpj: cnpj } });
   }
 
-  async cadastrar(data: EmpresaCadastrarDto): Promise<ResultadoDto> {
-    const empresa = new Empresa();
+  async registerCompany(data: CompanyRegisterDto): Promise<ResultDto> {
+    const company = new Company();
 
-    empresa.cnpj = data.cnpj;
-    empresa.nomeFantasia = data.nomeFantasia;
-    empresa.email = data.email;
-    empresa.telefone = data.telefone;
-    empresa.razaoSocial = data.razaoSocial;
-    empresa.nomeLojista = data.nomeLojista;
-    empresa.emailLojista = data.emailLojista;
-    empresa.telefoneLojista1 = data.telefoneLojista1;
-    empresa.telefoneLojista2 = data.telefoneLojista2;
+    company.cnpj = data.cnpj;
+    company.nomeFantasia = data.nomeFantasia;
+    company.email = data.email;
+    company.telefone = data.telefone;
+    company.razaoSocial = data.razaoSocial;
+    company.nomeLojista = data.nomeLojista;
+    company.emailLojista = data.emailLojista;
+    company.telefoneLojista1 = data.telefoneLojista1;
+    company.telefoneLojista2 = data.telefoneLojista2;
 
-    return this.empresaRepository
-      .save(empresa)
+    return this.companyRepository
+      .save(company)
       .then(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: true,
           message: 'Empresa cadastrada com sucesso',
         };
       })
       .catch(() => {
-        return <ResultadoDto>{
+        return <ResultDto>{
           status: false,
           message: 'Houve um erro ao cadastar',
         };

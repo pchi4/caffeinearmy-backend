@@ -9,9 +9,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req) {
-    
-  }
+  async login(@Request() req) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')

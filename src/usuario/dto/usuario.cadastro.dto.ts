@@ -1,4 +1,4 @@
-export interface UsuarioCadastrarDto {
+export interface UserRegisterDto {
   name: string;
   email: string;
   telefone: string;

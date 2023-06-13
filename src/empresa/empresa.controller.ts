@@ -6,18 +6,18 @@ import {
   Body,
   ParseIntPipe,
 } from '@nestjs/common';
-import { EmpresaCadastrarDto } from './dto/empresa.cadastrar.dto';
-import { Empresa } from './empresa.entity';
-import { EmmpresaService } from './empresa.services';
+import { CompanyRegisterDto } from './dto/empresa.cadastrar.dto';
+import { Company } from './empresa.entity';
+import { CompanyService } from './empresa.services';
 import { CompanyNotFound } from './Execeptions/CompanyNotFound.execption';
 import { CompanyBadRequest } from './Execeptions/CompanyBadRequest';
 
 @Controller('empresa')
 export class EmpresaController {
-  constructor(private readonly empresaService: EmmpresaService) {}
+  constructor(private readonly empresaService: CompanyService) {}
 
   @Get('listar')
-  async findAll(): Promise<Empresa[]> {
+  async findAll(): Promise<Company[]> {
     const companys = this.empresaService.findAll();
 
     if (!companys) {
@@ -39,7 +39,7 @@ export class EmpresaController {
   }
 
   @Post('cadastrar')
-  async cadastrar(@Body() body: EmpresaCadastrarDto) {
+  async cadastrar(@Body() body: CompanyRegisterDto) {
     const company = await this.empresaService.findByCnpj(body.cnpj);
 
     if (body?.cnpj === company?.cnpj) {
@@ -50,6 +50,6 @@ export class EmpresaController {
       throw new CompanyBadRequest('Empresa já cadastrada com esse email');
     }
 
-    return this.empresaService.cadastrar(body);
+    return this.empresaService.registerCompany(body);
   }
 }
